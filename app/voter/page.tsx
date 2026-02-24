@@ -51,15 +51,13 @@ const vote = async (electionId: string, candidateId: string) => {
   }
 
   try {
-    const voteId = `${user.uid}_${electionId}`;
-    const voteRef = doc(db, "votes", voteId);
-
-    await setDoc(voteRef, {
-      electionId,
-      userId: user.uid,
-      candidateId,
-      createdAt: serverTimestamp(),
-    });
+   const voteId = `${electionId}_${user.uid}`;
+await setDoc(doc(db, "votes", voteId), {
+  electionId,
+  userId: user.uid,
+  candidateId,
+  createdAt: serverTimestamp(),
+});
 
     alert("Vote submitted!");
   } catch (err: any) {
